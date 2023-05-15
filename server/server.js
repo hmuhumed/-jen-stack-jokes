@@ -49,7 +49,7 @@ app.post('/jokes' , function (req , res) {
   jokes.push(req.body)
 })
 
-app.get('/history' , function(req , res) {
+app.get('/jokes' , function(req , res) {
   console.log('request for /history was made');
   
   res.send(jokes)

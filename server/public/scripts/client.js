@@ -8,6 +8,7 @@ function onReady() {
     $('#deleteJokeButton').on('click' , clearJoke);
 
     getJokes();
+
 }
 
 // let whoseJoke = $('#whoseJokeIn').val();
@@ -36,35 +37,37 @@ function addJoke() {
         getJokes();
     }).catch(function(error){
         console.log('POST /jokes error' , error);
-    })
-}
+    });
+};
 
 function getJokes() {
 
     $.ajax({
         method: 'GET',
-        url: '/history'
+        url: '/jokes'
     }).then(function(response){
         console.log('Success' , response)
-        renderToDom();
+        renderToDom(response);
     }).catch(function(error){
         console.log('History error ' , error)
     });
 };
 
-function renderToDom(){
+function renderToDom(jokes){
 
-    let whoseJoke = $('#whoseJokeIn').val();
-    let jokeQuestion = $('#questionIn').val();
-    let punchLine = $('#punchlineIn').val();
+    $('#outputDiv').empty();
 
-    $('#outputDiv').append(`
+    for (joke of jokes){
+        $('#outputDiv').append(`
     
-    <li>${whoseJoke} asked ${jokeQuestion} ${punchLine}</li>
+    <li>${joke.whoseJoke} ${joke.jokeQuestion} ${joke.punchLine}</li>
     
 
-    `)
-}
+    `);
+    }
+
+    
+};
 
 function clearJoke(){
 
@@ -74,4 +77,4 @@ function clearJoke(){
     $('#questionIn').val('');
     $('#punchlineIn').val('');
 
-}
+};
