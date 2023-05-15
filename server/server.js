@@ -40,3 +40,18 @@ app.use(express.static('server/public'));
 app.listen(PORT, () => {
   console.log('server running on: ', PORT);
 }); // end spin up server
+
+app.post('/jokes' , function (req , res) {
+  console.log('req.body for POST /jokes' , req.body)
+
+  res.sendStatus(201);
+
+  jokes.push(req.body)
+})
+
+app.get('/history' , function(req , res) {
+  console.log('request for /history was made');
+  
+  res.send(jokes)
+
+});
